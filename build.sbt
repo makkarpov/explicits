@@ -1,7 +1,7 @@
 import java.nio.file.{Files, StandardCopyOption}
 
 ThisBuild / organization := "mx.m-k"
-ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / version := "0.1"
 ThisBuild / scalaVersion := "3.2.0"
 
 ThisBuild / idePackagePrefix := Some("mx.mk.explicits")
@@ -11,6 +11,34 @@ lazy val root = (project in file("."))
   .dependsOn(generic, impl3_2, impl3_2_1, impl3_3_0, impl3_3_1)
   .settings(
     name := "explicits",
+
+    publishTo := {
+      val nexus = "https://oss.sonatype.org/"
+      if (isSnapshot.value) Some("snapshots" at nexus + "content/repositories/snapshots")
+      else Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+    },
+
+    publishMavenStyle := true,
+
+    versionScheme := Some("semver-spec"),
+    licenses := Seq("Apache 2" -> url("https://www.apache.org/licenses/LICENSE-2.0.txt")),
+    homepage := Some(url("https://github.com/makkarpov/explicits")),
+    organizationName := "Maxim Karpov",
+    organizationHomepage := Some(url("https://github.com/makkarpov")),
+    scmInfo := Some(ScmInfo(
+      browseUrl = url("https://github.com/makkarpov/explicits"),
+      connection = "scm:git://github.com/makkarpov/explicits.git"
+    )),
+
+    pomExtra := {
+      <developers>
+        <developer>
+          <id>makkarpov</id>
+          <name>Maxim Karpov</name>
+          <url>https://github.com/makkarpov</url>
+        </developer>
+      </developers>
+    },
 
     // i'm too lazy to merge them all + impls don't contain any useful docs or sources
     Compile / packageSrc := (generic / Compile / packageSrc).value,
@@ -31,7 +59,8 @@ lazy val root = (project in file("."))
 
 val subprojectSettings = Seq(
   publishArtifact := false,
-  publishTo := None
+  publishTo := None,
+  publish / skip := true
 )
 
 val compilerImplSettings = subprojectSettings ++ Seq(

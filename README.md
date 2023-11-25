@@ -3,6 +3,10 @@ explicits
 
 A tiny library which gives macro authors much more control over Scala 3 implicit resolution process.
 
+```scala
+libraryDependencies += "mx.m-k" %% "explicits" % "0.1"
+```
+
 Implicit resolution
 -------------------
 
@@ -39,21 +43,23 @@ def deriveMeow[T](using Type[T], Quotes): Expr[CanMeow[T]] = {
     // provide explicit givens:
     .give[CanMeow[Foobar]]('{ ??? })
     // setup the assisted resolution:
-    .assist(tpe => isCanMeowType(tpe))
-    // get the final result:
-    .search()
+    .assist {
+      case '[ CanMeow[t] ]  => true   // sure, everything can meow with me
+      case _                => false  // can't assist with anything else
+    }
+    .search()   // get the final result
+    .toSuccess  // aborts the macro if search failed
   
-  r match {
-    case success: ImplicitSearch.Success =>
-      // inspect what was missing:
-      val meows: Seq[Expr[?]] = success.missingTypes.map(deriveMeow)
-      
-      // construct the final expression:
-      success.construct(meows)
-
-    case failure: ImplicitSearch.Failure =>
-      quotes.reflect.report.errorAndAbort(failure.explanation)
-  }
+  // inspect and derive what was missing:
+  val meows: Seq[Expr[?]] = success
+    .missingTypes
+    .map {
+      case '[ CanMeow[t] ] => 
+        '{ new CanMeow[t] { /* teach `t` to meow here */ } }
+    }
+  
+  // construct the final expression:
+  success.construct(meows)
 }
 ```
 
