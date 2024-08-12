@@ -62,11 +62,11 @@ object CompilerBridge {
 
     val settings = q.reflect.CompilationInfo.XmacroSettings
     if (settings.contains("mx.m-k.explicits.debug")) {
-      val className = classOf[CompilerBridge].getName
+      val ownClassName = classOf[CompilerBridge].getName
       val vMajor = selectedVersion / 1000
       val vMinor = selectedVersion % 1000
 
-      report.info(s"$className: compiler version $versionString, using bridge class '$className' " +
+      report.info(s"$ownClassName: compiler version $versionString, using bridge class '$className' " +
         s"(for version 3.$vMajor.$vMinor)")
     }
 
