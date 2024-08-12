@@ -60,7 +60,10 @@ lazy val root = (project in file("."))
 val subprojectSettings = Seq(
   publishArtifact := false,
   publishTo := None,
-  publish / skip := true
+  publish / skip := true,
+
+  // @experimental annotation's existence is definitely not a terrible mistake:
+  scalacOptions += "-Yskip:crossVersionChecks"
 )
 
 val compilerImplSettings = subprojectSettings ++ Seq(

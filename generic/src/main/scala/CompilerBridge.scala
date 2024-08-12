@@ -50,7 +50,7 @@ object CompilerBridge {
     }
 
     val versionInt = versionParts(1).toInt * 1000 + versionParts(2).toInt
-    val (_, classNameShort) = bridgeClasses
+    val (selectedVersion, classNameShort) = bridgeClasses
       .reverseIterator
       .find { case (i, _) => versionInt >= i }
       .getOrElse(report.errorAndAbort("Failed to find compiler-specific implementation for assisted implicits for " +
@@ -59,6 +59,16 @@ object CompilerBridge {
     val className = "mx.mk.explicits." + classNameShort
     val clsObj = tryFindClass(className)
       .getOrElse(report.errorAndAbort("Failed to load implementation class: " + className))
+
+    val settings = q.reflect.CompilationInfo.XmacroSettings
+    if (settings.contains("mx.m-k.explicits.debug")) {
+      val className = classOf[CompilerBridge].getName
+      val vMajor = selectedVersion / 1000
+      val vMinor = selectedVersion % 1000
+
+      report.info(s"$className: compiler version $versionString, using bridge class '$className' " +
+        s"(for version 3.$vMajor.$vMinor)")
+    }
 
     clsObj
       .getConstructor()

@@ -13,7 +13,7 @@ Implicit resolution
 Vanilla `Implicits.search` method provided by the compiler has several major drawbacks:
 
 * It resolves implicits strictly in the scope of a macro application: you cannot inject any additional imports or givens even if you know where to look,
-* and it either resolves the implicit completely or completely fails. You cannot get half-resolved result like "i can do that, but you need to provide X and Y for me".
+* and it either resolves the implicit completely or completely fails. You cannot get half-resolved result like "I can do that, but you need to provide X and Y for me".
 
 Second drawback is critical if you are writing a macros to derive typeclasses recursively. Consider the following example:
 
@@ -63,7 +63,7 @@ def deriveMeow[T](using Type[T], Quotes): Expr[CanMeow[T]] = {
 }
 ```
 
-If you don't use the `.assist()` method, `ImplicitSearch.Success` will always have `missingTypes` field empty, and simple `.construct(Nil)` is sufficient to get the final expression. Any missing implicit will fail the overall resolution process.
+If you don't use the `.assist()` method, `ImplicitSearch.Success` will always have `missingTypes` field empty, and simple `.construct(Nil)` is sufficient to get the final expression. Any missing implicit will fail the overall resolution process if assisted resolution is disabled.
 
 If you want to assist the compiler with implicit resolution:
 
@@ -73,9 +73,9 @@ If you want to assist the compiler with implicit resolution:
 Compatibility
 -------------
 
-Since this library heavily depends on the compiler internals, it could easily break even on slightest compiler change. To ensure seamless operation across a wide range on compiler versions, this library provides multiple alternate implementations and selects the correct one at runtime.
+Since this library heavily depends on the compiler internals, it could easily break even on slightest compiler change. To ensure seamless operation across a wide range of compiler versions, this library internally packs multiple backend implementations and selects a correct one at runtime.
 
-Currently, this library supports all stable compiler versions from **3.2.0** up to **3.3.1**.
+Currently, this library is tested to work on all released compiler versions from **3.2.0** up to **3.4.2**.
 
 License
 -------
