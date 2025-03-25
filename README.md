@@ -75,7 +75,7 @@ Compatibility
 
 Since this library heavily depends on the compiler internals, it could easily break even on slightest compiler change. To ensure seamless operation across a wide range of compiler versions, this library internally packs multiple backend implementations and selects a correct one at runtime.
 
-Currently, this library is tested to work on all released compiler versions from **3.2.0** up to **3.4.2**.
+Currently, this library is tested to work on all released compiler versions from **3.2.0** up to **3.6.4**.
 
 License
 -------
