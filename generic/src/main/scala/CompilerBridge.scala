@@ -80,6 +80,7 @@ object CompilerBridge {
     2000 -> "sc2.BridgeImpl",
     2001 -> "sc2_1.BridgeImpl",
     3000 -> "sc3.BridgeImpl",
-    3001 -> "sc3_1.BridgeImpl"
+    3001 -> "sc3_1.BridgeImpl",
+    7000 -> "sc7.BridgeImpl",
   )
 }

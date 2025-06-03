@@ -1,14 +1,14 @@
 import java.nio.file.{Files, StandardCopyOption}
 
 ThisBuild / organization := "mx.m-k"
-ThisBuild / version := "0.1"
-ThisBuild / scalaVersion := "3.2.0"
+ThisBuild / version := "0.2"
+ThisBuild / scalaVersion := "3.7.0"
 
 ThisBuild / idePackagePrefix := Some("mx.mk.explicits")
 Global / excludeLintKeys += idePackagePrefix
 
 lazy val root = (project in file("."))
-  .dependsOn(generic, impl3_2, impl3_2_1, impl3_3_0, impl3_3_1)
+  .dependsOn(generic, impl3_2, impl3_2_1, impl3_3_0, impl3_3_1, impl3_7_0)
   .settings(
     name := "explicits",
 
@@ -53,7 +53,8 @@ lazy val root = (project in file("."))
       (impl3_2 / Compile / packageBin).value,
       (impl3_2_1 / Compile / packageBin).value,
       (impl3_3_0 / Compile / packageBin).value,
-      (impl3_3_1 / Compile / packageBin).value
+      (impl3_3_1 / Compile / packageBin).value,
+      (impl3_7_0 / Compile / packageBin).value,
     )
   )
 
@@ -104,13 +105,18 @@ lazy val impl3_3_1 = (project in file("impl/scala-3.3.1"))
   .settings(compilerImplSettings)
   .settings(scalaVersion := "3.3.1")
 
+lazy val impl3_7_0 = (project in file("impl/scala-3.7.0"))
+  .dependsOn(generic, impl3_2, impl3_3_0)
+  .settings(compilerImplSettings)
+  .settings(scalaVersion := "3.7.0")
+
 lazy val playground = (project in file("playground"))
   .dependsOn(root)
   .settings(subprojectSettings)
   .settings(
     name := "playground",
     Compile / scalaSource := baseDirectory.value / "src",
-    scalaVersion := "3.3.1"
+    scalaVersion := "3.7.0"
   )
 
 commands += Command.command("prepareTest") { st =>

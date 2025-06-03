@@ -76,7 +76,7 @@ final class SearchContext(
         isImport = false)(fixedContext))
 
     inContext(searchContext) {
-      ctx.typer.inferImplicitArg(targetType, position.span)
+      ctx.typer.inferImplicit(targetType, position)
     }
   }
 

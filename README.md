@@ -4,7 +4,7 @@ explicits
 A tiny library which gives macro authors much more control over Scala 3 implicit resolution process.
 
 ```scala
-libraryDependencies += "mx.m-k" %% "explicits" % "0.1"
+libraryDependencies += "mx.m-k" %% "explicits" % "0.2"
 ```
 
 Implicit resolution
@@ -75,7 +75,7 @@ Compatibility
 
 Since this library heavily depends on the compiler internals, it could easily break even on slightest compiler change. To ensure seamless operation across a wide range of compiler versions, this library internally packs multiple backend implementations and selects a correct one at runtime.
 
-Currently, this library is tested to work on all released compiler versions from **3.2.0** up to **3.6.4**.
+Currently, this library is tested to work on [all released compiler versions](test/build.sbt) from **3.2.0** up to **3.7.0**.
 
 License
 -------

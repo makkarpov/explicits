@@ -1,4 +1,4 @@
-package mx.mk.explicits.sc3_1
+package mx.mk.explicits.sc7
 
 import dotty.tools.dotc.ast.{Trees, tpd, untpd}
 import dotty.tools.dotc.core.Contexts.{Context, ctx}

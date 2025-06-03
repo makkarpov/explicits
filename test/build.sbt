@@ -18,7 +18,8 @@ crossScalaVersions := Seq(
   "3.5.2",
   "3.6.2",
   "3.6.3",
-  "3.6.4"
+  "3.6.4",
+  "3.7.0",
 )
 
 ThisBuild / idePackagePrefix := Some("test")

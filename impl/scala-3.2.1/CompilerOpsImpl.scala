@@ -6,7 +6,8 @@ import dotty.tools.dotc.core.Symbols.Symbol
 import dotty.tools.dotc.core.Types.Type
 import dotty.tools.dotc.core.{Flags, Names, Symbols}
 import dotty.tools.dotc.typer.Implicits.ContextualImplicits
-
+import dotty.tools.dotc.typer.Typer
+import dotty.tools.dotc.util.SourcePosition
 import mx.mk.explicits.sc2.generic.CompilerOps
 
 import scala.quoted.runtime.impl.{ExprImpl, SpliceScope, TypeImpl}
@@ -39,5 +40,10 @@ class CompilerOpsImpl extends CompilerOps {
 
   extension (c: tpd.Tree) {
     def ciType: Type = c.tpe
+  }
+
+  extension (t: Typer) {
+    override def inferImplicit(tpe: Type, pos: SourcePosition)(using Context): tpd.Tree =
+      t.inferImplicitArg(tpe, pos.span)
   }
 }
