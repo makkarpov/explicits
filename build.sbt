@@ -12,12 +12,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "explicits",
 
-    publishTo := {
-      val nexus = "https://oss.sonatype.org/"
-      if (isSnapshot.value) Some("snapshots" at nexus + "content/repositories/snapshots")
-      else Some("releases"  at nexus + "service/local/staging/deploy/maven2")
-    },
-
+    publishTo := localStaging.value,
     publishMavenStyle := true,
 
     versionScheme := Some("semver-spec"),
