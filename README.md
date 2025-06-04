@@ -4,7 +4,7 @@ explicits
 A tiny library which gives macro authors much more control over Scala 3 implicit resolution process.
 
 ```scala
-libraryDependencies += "mx.m-k" %% "explicits" % "0.2"
+libraryDependencies += "mx.m-k" %% "explicits" % "0.2.1"
 ```
 
 Implicit resolution

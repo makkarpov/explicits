@@ -1,8 +1,8 @@
 import java.nio.file.{Files, StandardCopyOption}
 
 ThisBuild / organization := "mx.m-k"
-ThisBuild / version := "0.2"
-ThisBuild / scalaVersion := "3.7.0"
+ThisBuild / version := "0.2.1"
+ThisBuild / scalaVersion := "3.2.0"
 
 ThisBuild / idePackagePrefix := Some("mx.mk.explicits")
 Global / excludeLintKeys += idePackagePrefix
@@ -34,6 +34,7 @@ lazy val root = (project in file("."))
         </developer>
       </developers>
     },
+    pomPostProcess := Packager.fixupPomDependencies,
 
     // i'm too lazy to merge them all + impls don't contain any useful docs or sources
     Compile / packageSrc := (generic / Compile / packageSrc).value,
